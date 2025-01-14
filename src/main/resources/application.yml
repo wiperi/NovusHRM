@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: NovusCRM
+  datasource:
+    url: jdbc:mysql://localhost:3306/world
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  devtools:
+    restart:
+      enabled: false # Using Hotswap of Idea instead
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations:
+    - classpath:mappers/*.xml
