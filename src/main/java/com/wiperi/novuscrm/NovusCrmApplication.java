@@ -1,6 +1,5 @@
 package com.wiperi.novuscrm;
 
-import org.apache.coyote.ajp.AjpProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

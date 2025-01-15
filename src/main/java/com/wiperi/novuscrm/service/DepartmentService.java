@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    List<Department> getAllDepartments();
+    List<Department> getAll();
 
+    Integer delete(Long id);
+
+    Integer create(Department department);
+
+    Integer update(Long id, Department department);
 }

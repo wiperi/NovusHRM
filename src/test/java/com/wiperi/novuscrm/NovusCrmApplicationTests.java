@@ -13,6 +13,6 @@ class NovusCrmApplicationTests {
 
 	@Test
 	void findDepartments() {
-		departmentService.getAllDepartments().forEach(System.out::println);
+		departmentService.getAll().forEach(System.out::println);
 	}
 }
