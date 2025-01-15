@@ -1,6 +1,7 @@
 package com.wiperi.novuscrm.mappers;
 import com.wiperi.novuscrm.models.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;

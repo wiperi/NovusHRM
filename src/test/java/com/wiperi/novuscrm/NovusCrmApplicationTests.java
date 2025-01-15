@@ -1,7 +1,9 @@
 package com.wiperi.novuscrm;
 
+import com.wiperi.novuscrm.mappers.DepartmentMapper;
 import com.wiperi.novuscrm.mappers.UserMapper;
 import com.wiperi.novuscrm.models.User;
+import com.wiperi.novuscrm.service.DepartmentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,15 @@ class NovusCrmApplicationTests {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private DepartmentMapper departmentMapper;
+
+	@Test
+	void testDepartmentMapper() {
+		List<com.wiperi.novuscrm.models.Department> res = departmentMapper.findAll();
+		Assertions.assertNotEquals(0, res.size());
+	}
 
 	@Test
 	void contextLoads() {
@@ -66,4 +77,11 @@ class NovusCrmApplicationTests {
 		res.forEach(System.out::println);
 	}
 
+	@Autowired
+	private DepartmentService departmentService;
+
+	@Test
+	void findDepartments() {
+		departmentService.getAllDepartments().forEach(System.out::println);
+	}
 }
