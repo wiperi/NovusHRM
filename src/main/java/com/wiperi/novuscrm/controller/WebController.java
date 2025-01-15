@@ -1,4 +1,4 @@
-package com.wiperi.novuscrm.controllers;
+package com.wiperi.novuscrm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

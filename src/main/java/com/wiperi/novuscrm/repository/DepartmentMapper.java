@@ -1,6 +1,6 @@
-package com.wiperi.novuscrm.mappers;
+package com.wiperi.novuscrm.repository;
 
-import com.wiperi.novuscrm.models.Department;
+import com.wiperi.novuscrm.model.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

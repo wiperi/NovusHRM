@@ -1,4 +1,4 @@
-package com.wiperi.novuscrm.models;
+package com.wiperi.novuscrm.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
