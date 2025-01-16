@@ -10,5 +10,4 @@ public class NovusCrmApplication {
 		SpringApplication.run(NovusCrmApplication.class, args);
 		System.out.println("NovusCRM Started!");
 	}
-
 }

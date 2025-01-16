@@ -1,6 +1,7 @@
 package com.wiperi.novuscrm.service;
 
 import com.wiperi.novuscrm.model.Department;
+import com.wiperi.novuscrm.exception.HttpException;
 
 import java.util.List;
 
@@ -8,9 +9,9 @@ public interface DepartmentService {
 
     List<Department> getAll();
 
-    Integer delete(Long id);
+    void delete(Long id) throws HttpException;
 
-    Integer create(Department department);
+    void create(Department department) throws Exception;
 
-    Integer update(Long id, Department department);
+    void update(Department department) throws HttpException;
 }
