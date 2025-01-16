@@ -9,7 +9,7 @@ spring:
 
   devtools:
     restart:
-      enabled: false # Using Hotswap of Idea instead
+      enabled: true # or use Hotswap of Idea instead
 
 mybatis:
   configuration:
