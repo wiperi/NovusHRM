@@ -1,6 +1,6 @@
 package com.wiperi.novuscrm;
 
-import com.wiperi.novuscrm.service.DepartmentService;
+import com.wiperi.novuscrm.service.DeptService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,10 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class NovusCrmApplicationTests {
 
 	@Autowired
-	private DepartmentService departmentService;
+	private DeptService deptService;
 
 	@Test
 	void findDepartments() {
-		departmentService.getAll().forEach(System.out::println);
+		deptService.findAll().forEach(System.out::println);
 	}
 }

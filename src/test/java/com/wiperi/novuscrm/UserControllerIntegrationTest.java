@@ -19,7 +19,7 @@ public class UserControllerIntegrationTest {
 
     @Test
     public void testGetAllDepartments() {
-        String response = this.restTemplate.getForObject("http://localhost:" + port + "/departments", String.class);
+        String response = this.restTemplate.getForObject("http://localhost:" + port + "/depts", String.class);
         assertThat(response).isNotNull();
         System.out.println(response);
     }

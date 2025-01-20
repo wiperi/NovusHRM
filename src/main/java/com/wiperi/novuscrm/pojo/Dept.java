@@ -1,4 +1,4 @@
-package com.wiperi.novuscrm.model;
+package com.wiperi.novuscrm.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,17 +7,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Department {
+@AllArgsConstructor
+public class Dept {
     private Integer id;
     private String name;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-
-    public static void main(String[] args) {
-        Department de = new Department(1, "Test", LocalDateTime.now(), LocalDateTime.now());
-        System.out.println(de);
-    }
 }
-
