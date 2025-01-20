@@ -17,3 +17,9 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations:
     - classpath:mappers/*.xml
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+  api-docs:
+    path: /docs
