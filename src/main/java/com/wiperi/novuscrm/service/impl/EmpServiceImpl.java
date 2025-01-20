@@ -25,7 +25,7 @@ public class EmpServiceImpl implements EmpService {
 
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
-        List<Emp> list = empMapper.list();
+        List<Emp> list = empMapper.list(empQueryParam);
         Page<Emp> page = (Page<Emp>) list;
 
         return new PageResult<>(page.getTotal(), page.getResult());
