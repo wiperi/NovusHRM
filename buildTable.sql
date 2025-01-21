@@ -36,7 +36,6 @@ create table emp(
                     update_time datetime comment '修改时间'
 ) comment '员工表';
 
-
 INSERT INTO emp VALUES
                     (1,'shinaian','123456','施耐庵',1,'13309090001',4,15000,'https://web-framework.oss-cn-hangzhou.aliyuncs.com/2023/1.jpg','2000-01-01',2,'2023-10-20 16:35:33','2023-11-16 16:11:26'),
                     (2,'songjiang','123456','宋江',1,'13309090002',2,8600,'https://web-framework.oss-cn-hangzhou.aliyuncs.com/2023/1.jpg','2015-01-01',2,'2023-10-20 16:35:33','2023-10-20 16:35:37'),
@@ -69,12 +68,8 @@ INSERT INTO emp VALUES
                     (30,'liyun','123456','李云',1,'13309090030',NULL,NULL,'https://web-framework.oss-cn-hangzhou.aliyuncs.com/2023/1.jpg','2020-03-01',NULL,'2023-10-20 16:35:33','2023-10-20 16:36:31'),
                     (36,'linghuchong','123456','令狐冲',1,'18809091212',2,6800,'https://web-framework.oss-cn-hangzhou.aliyuncs.com/2023/1.jpg','2023-10-19',2,'2023-10-20 20:44:54','2023-11-09 09:41:04');
 
-select e.*, d.name as dept_name
-from emp e join dept d on e.dept_id = d.id
-limit 0, 10;
-
-
 -- 员工工作经历信息
+drop table if exists emp_expr;
 create table emp_expr(
                          id int unsigned primary key auto_increment comment 'ID, 主键',
                          emp_id int unsigned comment '员工ID',
@@ -83,3 +78,4 @@ create table emp_expr(
                          company varchar(50) comment '公司名称',
                          job varchar(50) comment '职位'
 )comment '工作经历';
+

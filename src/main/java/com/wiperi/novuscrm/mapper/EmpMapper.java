@@ -15,5 +15,8 @@ public interface EmpMapper {
     List<Emp> list(EmpQueryParam empQueryParam);
 
 
-    // Integer insert(Emp emp);
+    void insert(Emp emp) throws Exception;
+
+    @Select("SELECT e.*, d.name as dept_name FROM emp e inner join dept d ON e.dept_id = d.id WHERE e.id = #{id}")
+    Emp getInfo(Integer id);
 }

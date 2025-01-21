@@ -28,3 +28,8 @@ springdoc:
 pagehelper:
   reasonable: true # if start page <= 0, make it = 1
   helper-dialect: mysql
+
+#spring事务管理日志
+#logging:
+#  level:
+#    org.springframework.jdbc.support.JdbcTransactionManager: debug
