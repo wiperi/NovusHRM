@@ -2,10 +2,15 @@ package com.wiperi.novuscrm.mapper;
 
 import com.wiperi.novuscrm.pojo.Emp;
 import com.wiperi.novuscrm.pojo.EmpQueryParam;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EmpMapper {
@@ -17,6 +22,12 @@ public interface EmpMapper {
 
     void insert(Emp emp) throws Exception;
 
-    @Select("SELECT e.*, d.name as dept_name FROM emp e inner join dept d ON e.dept_id = d.id WHERE e.id = #{id}")
     Emp getInfo(Integer id);
+
+    Integer delete(List<Integer> ids);
+
+    Integer update(Emp emp);
+
+    @MapKey("job")
+    List<Map<String, Object>> empJobData();
 }

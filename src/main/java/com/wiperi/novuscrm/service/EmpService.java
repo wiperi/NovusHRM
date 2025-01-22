@@ -29,7 +29,7 @@ public interface EmpService {
     /**
      * 修改员工
      */
-    void update(Emp emp);
+    void update(Emp emp) throws Exception;
 
     /**
      * 查询所有的员工数据

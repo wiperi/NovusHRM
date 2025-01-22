@@ -1,6 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.wiperi.novuscrm.mapper.EmpMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into emp (username,
@@ -29,6 +30,31 @@
                 #{updateTime})
     </insert>
 
+    <update id="update">
+        update emp
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="image != null and image != ''">image = #{image},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from emp where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="list" resultType="com.wiperi.novuscrm.pojo.Emp">
         select e.*, d.name deptName from emp as e left join dept as d on e.dept_id = d.id
         <where>
@@ -43,4 +69,60 @@
             </if>
         </where>
     </select>
+
+    <select id="getInfo" resultMap="empResultMap">
+        select e.*,
+               ex.id      as ex_id,
+               ex.emp_id  as ex_emp_id,
+               ex.begin   as ex_begin,
+               ex.end     as ex_end,
+               ex.company as ex_company,
+               ex.job     as ex_job,
+               d.name        d_name
+        from emp e
+                 left outer join emp_expr ex on e.id = ex.emp_id
+                 left outer join dept d on e.dept_id = d.id
+        where e.id = #{id}
+    </select>
+
+    <select id="empJobData" resultType="java.util.Map">
+        select case job
+                   when 1 then '班主任'
+                   when 2 then '讲师'
+                   when 3 then '学工主管'
+                   when 4 then '教研主管'
+                   when 5 then '咨询师'
+                   else '其他'
+                   end  as job,
+               count(0) as count
+        from emp
+        group by job
+        order by job desc
+    </select>
+
+    <resultMap id="empResultMap" type="com.wiperi.novuscrm.pojo.Emp">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryDate" column="entry_date"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptName" column="d_name"/>
+        <collection property="exprList" ofType="com.wiperi.novuscrm.pojo.EmpExpr">
+            <id property="id" column="ex_id"/>
+            <result property="empId" column="ex_emp_id"/>
+            <result property="begin" column="ex_begin"/>
+            <result property="end" column="ex_end"/>
+            <result property="company" column="ex_company"/>
+            <result property="job" column="ex_job"/>
+        </collection>
+    </resultMap>
 </mapper>
+

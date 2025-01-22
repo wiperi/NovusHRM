@@ -79,3 +79,40 @@ create table emp_expr(
                          job varchar(50) comment '职位'
 )comment '工作经历';
 
+
+# 生成员工工作经历信息
+DELIMITER //
+drop procedure if exists insert_emp_expr;
+create procedure insert_emp_expr(in start int, in end int)
+begin
+    declare i int default start;
+    declare emp_id int;
+    declare begin_date date;
+    declare end_date date;
+    declare company varchar(50);
+    declare job varchar(50);
+    while i <= end do
+        set emp_id = i;
+        set begin_date = date_add('2023-01-01', interval floor(rand() * 100) day);
+        set end_date = date_add(begin_date, interval floor(rand() * 100) day);
+        set company = concat('公司', floor(rand() * 100));
+        set job = concat('职位', floor(rand() * 100));
+        insert into emp_expr(emp_id, begin, end, company, job) values(emp_id, begin_date, end_date, company, job);
+        set i = i + 1;
+    end while;
+end //
+delimiter ;
+
+call insert_emp_expr(1, 20);
+
+select case e.job
+              when 1 then '班主任'
+              when 2 then '讲师'
+              when 3 then '学工主管'
+              when 4 then '教研主管'
+              when 5 then '咨询师'
+              else '其他'
+         end as job,
+       count(0)
+from emp as e
+group by e.job;

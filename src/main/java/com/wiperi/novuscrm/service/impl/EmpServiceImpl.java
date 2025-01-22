@@ -25,6 +25,8 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpExprMapper EmpExprMapper;
+    @Autowired
+    private EmpExprMapper empExprMapper;
 
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
@@ -54,19 +56,49 @@ public class EmpServiceImpl implements EmpService {
         EmpExprMapper.insertBatch(emp.getExprList());
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(List<Integer> ids) {
+        Integer count = empMapper.delete(ids);
 
+        if (count != ids.size()) {
+            throw new BusinessException("Emp id not exist");
+        }
+
+        count = EmpExprMapper.delete(ids);
+        if (count != ids.size()) {
+            throw new BusinessException("Emp expr id not exist");
+        }
     }
 
     @Override
     public Emp getInfo(Integer id) {
-        return empMapper.getInfo(id);
+        Emp res = empMapper.getInfo(id);
+        if (res == null) {
+            throw new BusinessException("Emp not exist");
+        }
+        return res;
     }
 
-    @Override
-    public void update(Emp emp) {
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(Emp emp) throws Exception {
+        Integer affected;
+        // update emp
+        affected = empMapper.update(emp);
+        if (affected != 1) {
+            throw new BusinessException("Emp not exist");
+        }
+
+        // delete emp exp
+        empExprMapper.delete(List.of(emp.getId()));
+
+        // insert new emp exp
+        if (emp.getExprList().isEmpty()) return;
+
+        emp.getExprList().forEach(expr -> expr.setEmpId(emp.getId()));
+        empExprMapper.insertBatch(emp.getExprList());
     }
 
     @Override

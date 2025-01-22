@@ -10,4 +10,6 @@ public interface EmpExprMapper {
 
     void insertBatch(List<EmpExpr> exprList) throws Exception;
 
+    Integer delete(List<Integer> empIds);
+
 }
