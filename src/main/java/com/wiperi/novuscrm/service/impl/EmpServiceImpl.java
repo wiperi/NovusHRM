@@ -1,27 +1,28 @@
-package com.wiperi.novuscrm.service.impl;
+    package com.wiperi.novuscrm.service.impl;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.wiperi.novuscrm.exception.BusinessException;
-import com.wiperi.novuscrm.mapper.EmpExprMapper;
-import com.wiperi.novuscrm.mapper.EmpMapper;
-import com.wiperi.novuscrm.pojo.*;
-import com.wiperi.novuscrm.service.EmpService;
-import com.wiperi.novuscrm.util.JWTUtils;
-import io.jsonwebtoken.Claims;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+    import com.github.pagehelper.Page;
+    import com.github.pagehelper.PageHelper;
+    import com.wiperi.novuscrm.anno.LogOperation;
+    import com.wiperi.novuscrm.exception.BusinessException;
+    import com.wiperi.novuscrm.mapper.EmpExprMapper;
+    import com.wiperi.novuscrm.mapper.EmpMapper;
+    import com.wiperi.novuscrm.pojo.*;
+    import com.wiperi.novuscrm.service.EmpService;
+    import com.wiperi.novuscrm.util.JWTUtils;
+    import io.jsonwebtoken.Claims;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Service;
+    import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import java.time.LocalDateTime;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
-@Slf4j
-@Service
-public class EmpServiceImpl implements EmpService {
+    @Slf4j
+    @Service
+    public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpMapper empMapper;
@@ -52,7 +53,7 @@ public class EmpServiceImpl implements EmpService {
 
         // emp expr not empty
         var exprList = emp.getExprList();
-        if (exprList.isEmpty()) return;
+        if (exprList == null || exprList.isEmpty()) return;
 
         // insert emp expr
         exprList.forEach(expr -> expr.setEmpId(emp.getId()));
@@ -68,10 +69,7 @@ public class EmpServiceImpl implements EmpService {
             throw new BusinessException("Emp id not exist");
         }
 
-        count = EmpExprMapper.delete(ids);
-        if (count != ids.size()) {
-            throw new BusinessException("Emp expr id not exist");
-        }
+        EmpExprMapper.delete(ids);
     }
 
     @Override
@@ -140,4 +138,4 @@ public class EmpServiceImpl implements EmpService {
                 empFound.getName(), token
         );
     }
-}
+    }

@@ -1,5 +1,6 @@
 package com.wiperi.novuscrm.controller;
 
+import com.wiperi.novuscrm.anno.LogOperation;
 import com.wiperi.novuscrm.pojo.Dept;
 import com.wiperi.novuscrm.pojo.Result;
 import com.wiperi.novuscrm.service.DeptService;
@@ -31,6 +32,7 @@ public class DeptController {
     /**
      * 删除部门 - 省略@RequestParam (前端传递的请求参数名与服务端方法形参名一致) [推荐]
      */
+    @LogOperation
     @DeleteMapping
     public Result delete(Integer id){
         //System.out.println("根据ID删除部门: " + id);
@@ -42,6 +44,7 @@ public class DeptController {
     /**
      * 新增部门
      */
+    @LogOperation
     @PostMapping
     public Result add(@RequestBody Dept dept){
         //System.out.println("新增部门: " + dept);
@@ -65,6 +68,7 @@ public class DeptController {
     /**
      * 修改部门
      */
+    @LogOperation
     @PutMapping
     public Result update(@RequestBody Dept dept){
         //System.out.println("修改部门: " + dept);

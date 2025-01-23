@@ -1,10 +1,13 @@
 package com.wiperi.novuscrm.interceptor;
 
 import com.wiperi.novuscrm.util.JWTUtils;
+import com.wiperi.novuscrm.util.UserContext;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
+    @Order(1)
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("AuthInterceptor preHandling");
 
@@ -31,7 +35,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         // check token
         try {
-            JWTUtils.parseToken(token);
+            var claims = JWTUtils.parseToken(token);
+            var empId = Integer.valueOf(claims.get("empId").toString());
+            UserContext.setUser(empId);
         } catch (JwtException e) {
             response.setContentType("application/json");
             response.getWriter().write("{\"message\": \"Unauthorized\"}");
@@ -40,5 +46,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        log.info("AuthInterceptor afterCompletion");
+        UserContext.clear();
     }
 }

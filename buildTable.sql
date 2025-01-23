@@ -103,16 +103,17 @@ begin
 end //
 delimiter ;
 
-call insert_emp_expr(1, 20);
+call insert_emp_expr(1, (select count(0) from emp));
 
-select case e.job
-              when 1 then '班主任'
-              when 2 then '讲师'
-              when 3 then '学工主管'
-              when 4 then '教研主管'
-              when 5 then '咨询师'
-              else '其他'
-         end as job,
-       count(0)
-from emp as e
-group by e.job;
+-- 操作日志表
+drop table if exists operate_log;
+create table operate_log(
+                            id int unsigned primary key auto_increment comment 'ID',
+                            operate_emp_id int unsigned comment '操作人ID',
+                            operate_time datetime comment '操作时间',
+                            class_name varchar(100) comment '操作的类名',
+                            method_name varchar(100) comment '操作的方法名',
+                            method_params varchar(1000) comment '方法参数',
+                            return_value varchar(2000) comment '返回值, 存储json格式',
+                            cost_time int comment '方法执行耗时, 单位:ms'
+) comment '操作日志表';

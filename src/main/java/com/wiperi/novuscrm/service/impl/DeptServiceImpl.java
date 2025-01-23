@@ -5,9 +5,7 @@ import com.wiperi.novuscrm.mapper.DeptMapper;
 import com.wiperi.novuscrm.pojo.Dept;
 import com.wiperi.novuscrm.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +18,6 @@ public class DeptServiceImpl implements DeptService {
     // @Autowired
     // private EmpMapper empMapper;
 
-    @LogOperation
     @Override
     public List<Dept> findAll() {
         return deptMapper.findAll();
