@@ -70,7 +70,7 @@
         </where>
     </select>
 
-    <select id="getInfo" resultMap="empResultMap">
+    <select id="getById" resultMap="empResultMap">
         select e.*,
                ex.id      as ex_id,
                ex.emp_id  as ex_emp_id,
@@ -98,6 +98,33 @@
         from emp
         group by job
         order by job desc
+    </select>
+
+    <select id="getByProvided" resultMap="empResultMap">
+        select e.*,
+        ex.id      as ex_id,
+        ex.emp_id  as ex_emp_id,
+        ex.begin   as ex_begin,
+        ex.end     as ex_end,
+        ex.company as ex_company,
+        ex.job     as ex_job,
+        d.name        d_name
+        from emp e
+        left outer join emp_expr ex on e.id = ex.emp_id
+        left outer join dept d on e.dept_id = d.id
+        <where>
+            <if test="name != null and name != ''">and e.name like concat('%',#{name},'%')</if>
+            <if test="username != null and username != ''">and e.username = #{username}</if>
+            <if test="password != null and password != ''">and e.password = #{password}</if>
+            <if test="gender != null">and e.gender = #{gender}</if>
+            <if test="phone != null and phone != ''">and e.phone = #{phone}</if>
+            <if test="job != null">and e.job = #{job}</if>
+            <if test="salary != null">and e.salary = #{salary}</if>
+            <if test="image != null and image != ''">and e.image = #{image}</if>
+            <if test="entryDate != null">and e.entry_date = #{entryDate}</if>
+            <if test="deptId != null">and e.dept_id = #{deptId}</if>
+            <if test="updateTime != null">and e.update_time = #{updateTime}</if>
+        </where>
     </select>
 
     <resultMap id="empResultMap" type="com.wiperi.novuscrm.pojo.Emp">

@@ -17,7 +17,7 @@ public interface EmpMapper {
 
     void insert(Emp emp) throws Exception;
 
-    Emp getInfo(Integer id);
+    Emp getById(Integer id);
 
     Integer delete(List<Integer> ids);
 
@@ -25,4 +25,6 @@ public interface EmpMapper {
 
     @MapKey("job")
     List<Map<String, Object>> empJobData();
+
+    Emp getByProvided(Emp emp);
 }

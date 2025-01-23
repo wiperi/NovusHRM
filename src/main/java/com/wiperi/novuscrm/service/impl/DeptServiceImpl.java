@@ -1,5 +1,6 @@
 package com.wiperi.novuscrm.service.impl;
 
+import com.wiperi.novuscrm.anno.LogOperation;
 import com.wiperi.novuscrm.mapper.DeptMapper;
 import com.wiperi.novuscrm.pojo.Dept;
 import com.wiperi.novuscrm.service.DeptService;
@@ -19,6 +20,7 @@ public class DeptServiceImpl implements DeptService {
     // @Autowired
     // private EmpMapper empMapper;
 
+    @LogOperation
     @Override
     public List<Dept> findAll() {
         return deptMapper.findAll();

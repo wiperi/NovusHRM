@@ -7,7 +7,8 @@
             <level>INFO</level> <!-- Console 日志级别为 ALL -->
         </filter>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg{36}%n%n</pattern>
+            <withJansi>true</withJansi>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] %logger{36} - %msg{36}%n%n</pattern>
         </encoder>
     </appender>
 

@@ -7,14 +7,17 @@ import com.wiperi.novuscrm.mapper.EmpExprMapper;
 import com.wiperi.novuscrm.mapper.EmpMapper;
 import com.wiperi.novuscrm.pojo.*;
 import com.wiperi.novuscrm.service.EmpService;
+import com.wiperi.novuscrm.util.JWTUtils;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -73,7 +76,7 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public Emp getInfo(Integer id) {
-        Emp res = empMapper.getInfo(id);
+        Emp res = empMapper.getById(id);
         if (res == null) {
             throw new BusinessException("Emp not exist");
         }
@@ -108,6 +111,33 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public LoginInfo login(Emp emp) {
-        return null;
+        // query if emp exist
+
+        // query username
+        Emp temp = new Emp();
+        temp.setUsername(emp.getUsername());
+
+        Emp empFound = empMapper.getByProvided(temp);
+        if (empFound == null) {
+            throw new BusinessException("Username not exist");
+        }
+
+        // query password
+        temp.setPassword(emp.getPassword());
+
+        empFound = empMapper.getByProvided(emp);
+        if (empFound == null) {
+            throw new BusinessException("Password not correct");
+        }
+
+        // sign new token
+        String token = JWTUtils.createToken(Map.of("empId", empFound.getId()));
+        System.out.println(token);
+
+        return new LoginInfo(
+                empFound.getId(),
+                empFound.getUsername(),
+                empFound.getName(), token
+        );
     }
 }

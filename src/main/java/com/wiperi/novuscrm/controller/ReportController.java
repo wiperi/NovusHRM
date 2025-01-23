@@ -1,6 +1,5 @@
 package com.wiperi.novuscrm.controller;
 
-import com.wiperi.novuscrm.pojo.JobOption;
 import com.wiperi.novuscrm.pojo.Result;
 import com.wiperi.novuscrm.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;

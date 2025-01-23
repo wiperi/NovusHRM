@@ -27,6 +27,12 @@ project:
     static-locations:
       images: file:///C:/Users/Boris/Documents/10_MyGithub/demo/resources/images
 
+novus-crm:
+  jwt:
+    secret: "sodjfosjfojeofwojfwejfpowejfpojfpwjfpjfopwjfwejoejfopefjpofjej"
+    expiration: 604800 # 7 days
+    tokenHead: Bearer
+
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
