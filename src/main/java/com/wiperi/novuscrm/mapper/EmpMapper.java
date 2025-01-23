@@ -2,10 +2,6 @@ package com.wiperi.novuscrm.mapper;
 
 import com.wiperi.novuscrm.pojo.Emp;
 import com.wiperi.novuscrm.pojo.EmpQueryParam;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +14,6 @@ public interface EmpMapper {
     // 如果使用page helper，结尾不能加';'
     // @Select("SELECT e.*, d.name as dept_name FROM emp e inner join dept d ON e.dept_id = d.id")
     List<Emp> list(EmpQueryParam empQueryParam);
-
 
     void insert(Emp emp) throws Exception;
 
