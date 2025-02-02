@@ -1,6 +1,6 @@
-drop database if exists novus;
-create database novus;
-use novus;
+drop database if exists novus_crm;
+create database novus_crm;
+use novus_crm;
 
 # Department table
 drop table if exists dept;
